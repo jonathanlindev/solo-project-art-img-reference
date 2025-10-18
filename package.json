@@ -1,0 +1,27 @@
+{
+  "type": "module",
+  "main": "server/server.ts",
+  "scripts": {
+    "start": "npm run server",
+    "dev": "concurrently \"vite\" \"tsx watch ./server/server.ts\"",
+    "server": "nodemon --exec tsx server/server.ts"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.15",
+    "@fortawesome/free-regular-svg-icons": "^5.7.2",
+    "@fortawesome/free-solid-svg-icons": "^5.7.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@types/express": "^5.0.3",
+    "@vitejs/plugin-react-swc": "^4.0.1",
+    "concurrently": "^9.2.1",
+    "express": "^4.16.3",
+    "mongoose": "^8.18.0",
+    "nodemon": "^3.1.10",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "tsx": "^4.20.5",
+    "vite": "^7.1.4"
+  }
+}
