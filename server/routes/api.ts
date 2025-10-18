@@ -1,11 +1,13 @@
 import express from 'express';
 import starWarsController from '../controllers/starWarsController.ts';
+import peopleData from '../../client/data/people.json';
 
 const router = express.Router();
 
 router.get('/', starWarsController.getCharacters, (req, res) => {
   // console.log(res.locals.characters);
-  res.status(200).json(res.locals.character);
+  // res.status(200).json(res.locals.character);
+  res.status(200).json(peopleData);
 });
 // router.get('/test', starWarsController.getCharacters, (req, res) => {
 //   res.status(200).json(res.locals.character);

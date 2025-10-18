@@ -1,7 +1,6 @@
 import path from 'path';
 import express from 'express';
 import apiRouter from './routes/api.ts';
-
 const app = express();
 
 const PORT = 3002;
