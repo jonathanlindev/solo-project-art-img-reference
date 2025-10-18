@@ -4,7 +4,7 @@ import apiRouter from './routes/api.ts';
 
 const app = express();
 
-const PORT = 3005;
+const PORT = 3002;
 
 /**
  * handle parsing request body
