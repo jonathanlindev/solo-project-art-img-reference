@@ -14,8 +14,8 @@ class Characters extends Component {
         open: false,
         type: null,
         position: { top: 0, left: 0 },
-        id: null
-      }
+        id: null,
+      },
     };
 
     this.openModal = this.openModal.bind(this);
@@ -24,15 +24,20 @@ class Characters extends Component {
 
   componentDidMount() {
     fetch('/api/')
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((characters) => {
         if (!Array.isArray(characters)) characters = [];
         return this.setState({
           characters,
-          fetchedChars: true
+          fetchedChars: true,
         });
       })
-      .catch(err => console.log('Characters.componentDidMount: get characters: ERROR: ', err));
+      .catch((err) =>
+        console.log(
+          'Characters.componentDidMount: get characters: ERROR: ',
+          err
+        )
+      );
   }
 
   openModal(type, position, id) {
@@ -42,8 +47,8 @@ class Characters extends Component {
         open: true,
         type,
         position,
-        id
-      }
+        id,
+      },
     });
   }
 
@@ -51,60 +56,48 @@ class Characters extends Component {
     this.setState({
       modalState: {
         ...this.state.modalState,
-        open: false
-      }
+        open: false,
+      },
     });
   }
 
   render() {
-    if (!this.state.fetchedChars) return (
-      <div>
-        <h1>Loading data, please wait...</h1>
-      </div>
-    );
+    if (!this.state.fetchedChars)
+      return (
+        <div>
+          <h1>Loading data, please wait...</h1>
+        </div>
+      );
 
     const { characters } = this.state;
 
     if (!characters) return null;
 
-    if (!characters.length) return (
-      <div>Sorry, no characters found</div>
-    );
+    if (!characters.length) return <div>Sorry, no characters found</div>;
 
     const charElems = characters.map((char, i) => {
-      return (
-        <CharacterCard
-          key={i}
-          info={char}
-          openModal={this.openModal}
-        />
-      );
+      return <CharacterCard key={i} info={char} openModal={this.openModal} />;
     });
 
     return (
-      <section className="mainSection">
-        <header className="pageHeader">
+      <section className='mainSection'>
+        <header className='pageHeader'>
           <h2>Characters</h2>
           <Link to={'/create'}>
-            <button
-              type="button"
-              className="btnSecondary"
-            >
+            <button type='button' className='btnSecondary'>
               Create Character
             </button>
           </Link>
         </header>
-        <div className="charContainer">
-          {charElems}
-        </div>
-        {this.state.modalState.open &&
+        <div className='charContainer'>{charElems}</div>
+        {this.state.modalState.open && (
           <DetailsModal
             type={this.state.modalState.type}
             position={this.state.modalState.position}
             id={this.state.modalState.id}
             closeModal={this.closeModal}
           />
-        }
+        )}
       </section>
     );
   }

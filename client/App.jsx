@@ -1,36 +1,80 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import PhotoGallery from './components/PhotoGallery';
+import SearchBar from './components/SearchBar';
+import UnsplashService from './services/unsplashService';
+import './App.css';
 
-import Characters from './components/Characters.jsx';
-import CreateCharacter from './components/CreateCharacter.jsx';
+function App() {
+  const [searchTerm, setSearchTerm] = useState('nature');
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-import './stylesheets/styles.css';
+  // Get API key from environment variables and initialize service
+  const UNSPLASH_ACCESS_KEY =
+    import.meta.env.VITE_UNSPLASH_ACCESS_KEY || 'YOUR_UNSPLASH_ACCESS_KEY_HERE';
 
-const App = props => {
+  const unsplashService = useMemo(
+    () => new UnsplashService(UNSPLASH_ACCESS_KEY),
+    [UNSPLASH_ACCESS_KEY]
+  );
+
+  const fetchPhotos = useCallback(
+    async (query = 'nature', page = 1) => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Using Unsplash service to fetch photos
+        const { photos } = await unsplashService.searchPhotos(query, page, 12);
+        setPhotos(photos);
+        console.log('photos: ' + JSON.stringify(photos));
+      } catch (err) {
+        setError(
+          'Error fetching photos. Please check your API key and try again.'
+        );
+        console.error('Error fetching photos:', err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [unsplashService]
+  );
+
+  useEffect(() => {
+    fetchPhotos(searchTerm);
+  }, [searchTerm, fetchPhotos]);
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
   return (
-    <div className="router">
-      <main>
-        {/*
-            NOTE: The syntax below is for React-Router
-              - A helpful library for routing with a React app.
-              You can learn more about this at:
-              https://reacttraining.com/react-router/web/guides/quick-start
-        */}
-        <Switch>
-          <Route
-            exact
-            path="/"
-            component={Characters}
-          />
-          <Route
-            exact
-            path="/create"
-            component={CreateCharacter}
-          />
-        </Switch>
-      </main>
+    <div className='container-fluid'>
+      <header className='bg-primary text-white py-4 mb-4'>
+        <div className='container'>
+          <h1 className='display-4 text-center'>Unsplash Photo Gallery</h1>
+          <p className='lead text-center'>Beautiful photos from Unsplash API</p>
+        </div>
+      </header>
+
+      <div className='container'>
+        <SearchBar onSearch={handleSearch} />
+
+        {error && (
+          <div className='alert alert-danger' role='alert'>
+            {error}
+          </div>
+        )}
+
+        <PhotoGallery
+          photos={photos}
+          loading={loading}
+          searchTerm={searchTerm}
+        />
+      </div>
     </div>
   );
-};
+}
 
 export default App;
