@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import CharacterCard from './CharacterCard.jsx';
-import DetailsModal from './DetailsModal.jsx';
 
 class Characters extends Component {
   constructor(props) {
@@ -90,14 +89,6 @@ class Characters extends Component {
           </Link>
         </header>
         <div className='charContainer'>{charElems}</div>
-        {this.state.modalState.open && (
-          <DetailsModal
-            type={this.state.modalState.type}
-            position={this.state.modalState.position}
-            id={this.state.modalState.id}
-            closeModal={this.closeModal}
-          />
-        )}
       </section>
     );
   }
