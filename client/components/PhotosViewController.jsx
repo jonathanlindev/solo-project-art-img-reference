@@ -4,40 +4,58 @@ import SearchBar from './SearchBar';
 import UnsplashService from '../../server/unsplashService';
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('nature');
+  const [searchTerm, setSearchTerm] = useState('featured');
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   // Get API key from environment variables and initialize service
-  const UNSPLASH_ACCESS_KEY =
-    import.meta.env.VITE_UNSPLASH_ACCESS_KEY || 'YOUR_UNSPLASH_ACCESS_KEY_HERE';
-
-  const unsplashService = useMemo(
-    () => new UnsplashService(UNSPLASH_ACCESS_KEY),
-    [UNSPLASH_ACCESS_KEY]
-  );
 
   const fetchPhotos = useCallback(
-    async (query = 'nature', page = 1) => {
+    async (query = 'featured', count = 16, page = 1, categories) => {
       setLoading(true);
       setError(null);
 
-      try {
-        // Using Unsplash service to fetch photos
-        const { photos } = await unsplashService.searchPhotos(query, page, 12);
-        setPhotos(photos);
-        console.log('photos: ' + JSON.stringify(photos));
-      } catch (err) {
-        setError(
-          'Error fetching photos. Please check your API key and try again.'
-        );
-        console.error('Error fetching photos:', err);
-      } finally {
-        setLoading(false);
+      console.log('Fetching photos for base:', import.meta.env.VITE_BASE_URL);
+      console.log('query: ' + encodeURIComponent(query));
+
+      let queryURL = '';
+
+      // root endpoint
+      if (query === 'featured') {
+        queryURL = `?featured=true&count=${count}`;
+      } // category endpoints
+      else if (categories !== undefined) {
+        queryURL = `category/?category=${encodeURIComponent(
+          categories
+        )}&count=${count}`;
+      } // search endpoint
+      else {
+        queryURL = `search/?search=${encodeURIComponent(query)}&count=${count}`;
       }
+
+      fetch(import.meta.env.VITE_BASE_URL + queryURL)
+        .then((res) => res.json())
+        .then((data) => {
+          const photos = JSON.parse(data)['photos'];
+
+          // console.log(
+          //   'data from backend API: ' + JSON.stringify(JSON.parse(data)['photos'])
+          // );
+
+          setPhotos(photos);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error('Error fetching from backend API:', err);
+          setError(
+            'Error fetching photos. Please check your API key and try again.'
+          );
+
+          setLoading(false);
+        });
     },
-    [unsplashService]
+    []
   );
 
   useEffect(() => {

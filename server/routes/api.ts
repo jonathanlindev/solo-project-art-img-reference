@@ -1,32 +1,21 @@
 import express from 'express';
 import starWarsController from '../controllers/starWarsController.ts';
-import apiController from '../controllers/someAPIController.ts';
+import apiController from '../controllers/unsplashAPIController.ts';
 
 const router = express.Router();
 
 router.get('/', apiController.getPhotosData, (req, res) => {
   // console.log(res.locals.characters);
-  // res.status(200).json(res.locals.character);
   res.status(200).json(JSON.stringify(res.locals.photosData));
 });
-// router.get('/test', starWarsController.getCharacters, (req, res) => {
-//   res.status(200).json(res.locals.character);
-// });
+router.get('/category', apiController.getPhotosCategoryData, (req, res) => {
+  // console.log(res.locals.characters);
+  res.status(200).json(JSON.stringify(res.locals.photosData));
+});
 
-router.get('/species', starWarsController.getSpecies, (req, res) =>
-  res.status(200).json({})
-);
-
-router.get('/homeworld', starWarsController.getHomeworld, (req, res) =>
-  res.status(200).json({})
-);
-
-router.get('/film', starWarsController.getFilm, (req, res) =>
-  res.status(200).json({})
-);
-
-router.post('/character', starWarsController.addCharacter, (req, res) =>
-  res.status(200).json({})
-);
+router.get('/search', apiController.searchPhotosData, (req, res) => {
+  // console.log(res.locals.characters);
+  res.status(200).json(JSON.stringify(res.locals.photosData));
+});
 
 export default router;
