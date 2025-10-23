@@ -70,7 +70,7 @@ export default {
   ) => {
     console.log('In someAPIController.getPhotosCategoryData middleware');
 
-    const query = JSON.stringify(req.query.category) || 'nature';
+    const query = req.query.category || 'nature';
     const perPage = req.query.count || '3';
     // random every 10 s refresh
     fetch(
@@ -122,7 +122,7 @@ export default {
     //featured photos
     //https://api.unsplash.com/photos/?featured=true&client_id=qa2kEUMJhMIYt-Lnf7dVKXWN0swIijdUNQQEVGfhH9Q
 
-    const query = JSON.stringify(req.query.search) || 'shapes';
+    const query = req.query.search || 'shapes';
     const perPage = req.query.count || '3';
     // random every 10 s refresh
     fetch(
@@ -144,7 +144,7 @@ export default {
       })
       .then((data) => {
         data.map((photo: any) => {
-          console.log('Photo ID:', photo.id, 'search: ', query);
+          // console.log('Photo ID:', photo.id, 'search: ', query);
           photo.category = query;
           photo.search = query;
           return photo;

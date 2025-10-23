@@ -22,7 +22,7 @@ function App() {
   // Get API key from environment variables and initialize service
 
   const fetchPhotos = useCallback(
-    async (query = 'featured', category, count = 16, page = 1) => {
+    async (query = 'featured', category, count = 2, page = 1) => {
       setLoading(true);
       setError(null);
 

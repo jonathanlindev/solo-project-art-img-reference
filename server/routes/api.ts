@@ -1,5 +1,5 @@
 import express from 'express';
-// import photosController from '../controllers/photosController.ts';
+import photosController from '../controllers/photosController.ts';
 import apiController from '../controllers/unsplashAPIController.ts';
 
 const router = express.Router();
@@ -14,11 +14,12 @@ router.get(
     res.status(200).json(JSON.stringify(res.locals.photosData));
   }
 );
+
 router.get(
   '/category',
   apiController.getPhotosCategoryData,
-  // photosController.createPhotos,
-  // photosController.getPhotosByCategory,
+  photosController.createPhotos,
+  photosController.getPhotosByCategory,
   (req, res) => {
     console.log('In /category route handler');
     res.status(200).json(JSON.stringify(res.locals.photosData));
