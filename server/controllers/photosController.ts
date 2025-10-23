@@ -82,7 +82,9 @@ const PhotosController = {
     next: NextFunction
   ) => {
     try {
-      const { category } = req.params;
+      // root/featured featured
+      //const { category } = req.params;
+      const category = 'featured';
 
       if (!category) {
         return next({
@@ -95,8 +97,11 @@ const PhotosController = {
         category: { $regex: new RegExp(category, 'i') }, // Case-insensitive search
       });
 
-      res.locals.photos = photos;
-      res.locals.count = photos.length;
+      res.locals.photosData = {
+        photos: photos,
+        total: photos.length,
+      };
+
       return next();
     } catch (err) {
       console.error('Error retrieving photos by category:', err);
@@ -134,9 +139,10 @@ const PhotosController = {
         ],
       });
 
-      res.locals.photos = photos;
-      res.locals.count = photos.length;
-      res.locals.searchTerm = searchTerm;
+      res.locals.photosData = {
+        photos: photos,
+        total: photos.length,
+      };
       return next();
     } catch (err) {
       console.error('Error retrieving photos by search:', err);
@@ -153,8 +159,10 @@ const PhotosController = {
     try {
       const photos = await models.Photos.find({});
 
-      res.locals.photos = photos;
-      res.locals.count = photos.length;
+      res.locals.photosData = {
+        photos: photos,
+        total: photos.length,
+      };
       return next();
     } catch (err) {
       console.error('Error retrieving all photos:', err);
