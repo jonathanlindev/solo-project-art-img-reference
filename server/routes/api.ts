@@ -7,8 +7,8 @@ const router = express.Router();
 router.get(
   '/',
   apiController.getPhotosData,
-  // photosController.createPhotos,
-  // photosController.getPhotosByCategory,
+  photosController.createPhotos,
+  photosController.getPhotosByCategory,
   (req, res) => {
     console.log('In / route handler');
     res.status(200).json(JSON.stringify(res.locals.photosData));
@@ -26,9 +26,15 @@ router.get(
   }
 );
 
-router.get('/search', apiController.searchPhotosData, (req, res) => {
-  console.log('In /search route handler');
-  res.status(200).json(JSON.stringify(res.locals.photosData));
-});
+router.get(
+  '/search',
+  apiController.searchPhotosData,
+  photosController.createPhotos,
+  photosController.getPhotosBySearch,
+  (req, res) => {
+    console.log('In /search route handler');
+    res.status(200).json(JSON.stringify(res.locals.photosData));
+  }
+);
 
 export default router;
