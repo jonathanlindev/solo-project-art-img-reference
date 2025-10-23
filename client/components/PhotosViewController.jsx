@@ -9,26 +9,43 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const categories = [
+    'nature',
+    'landscape',
+    'architecture',
+    'animals',
+    'food',
+    'travel',
+    'abstract',
+    'people',
+  ];
   // Get API key from environment variables and initialize service
 
   const fetchPhotos = useCallback(
-    async (query = 'featured', count = 16, page = 1, categories) => {
+    async (query = 'featured', category, count = 16, page = 1) => {
       setLoading(true);
       setError(null);
 
-      console.log('Fetching photos for base:', import.meta.env.VITE_BASE_URL);
+      // console.log('Fetching photos for base:', import.meta.env.VITE_BASE_URL);
       console.log('query: ' + encodeURIComponent(query));
 
       let queryURL = '';
 
+      if (categories.includes(query)) {
+        category = query;
+      }
+
+      console.log('category: ' + category);
+      console.log('query: ' + query);
       // root endpoint
       if (query === 'featured') {
         queryURL = `?featured=true&count=${count}`;
       } // category endpoints
-      else if (categories !== undefined) {
+      else if (category !== undefined) {
         queryURL = `category/?category=${encodeURIComponent(
-          categories
+          category
         )}&count=${count}`;
+        console.log('category fetch URL: ' + queryURL);
       } // search endpoint
       else {
         queryURL = `search/?search=${encodeURIComponent(query)}&count=${count}`;

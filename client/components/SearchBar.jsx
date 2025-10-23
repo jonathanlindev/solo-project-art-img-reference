@@ -15,7 +15,7 @@ const SearchBar = ({ onSearch }) => {
     onSearch(term);
   };
 
-  const popularSearches = [
+  const categories = [
     'nature',
     'landscape',
     'architecture',
@@ -52,9 +52,9 @@ const SearchBar = ({ onSearch }) => {
       </form>
 
       <div className='quick-searches'>
-        <small className='text-muted d-block mb-2'>Popular searches:</small>
+        <small className='text-muted d-block mb-2'>Categories:</small>
         <div className='d-flex flex-wrap gap-2'>
-          {popularSearches.map((term) => (
+          {categories.map((term) => (
             <button
               key={term}
               className='btn btn-outline-secondary btn-sm'

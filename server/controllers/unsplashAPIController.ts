@@ -37,12 +37,21 @@ export default {
       })
       .then((data) => {
         console.log('Fetched featured photos data:', JSON.stringify(data));
+        data.map((photo: any) => {
+          console.log('Photo ID:', photo.id, 'Category: featured');
+          photo.category = 'featured';
+          photo.search = 'featured';
+          return photo;
+        });
+        req.body = data;
+        req.query.category = 'featured';
+
+        // console.log('!!!' + JSON.stringify(req.body[0]));
         res.locals.photosData = {
           photos: data,
           total: perPage,
         };
         next();
-        // console.log('data: ' + JSON.stringify(data));
       })
       .catch((error) => {
         console.error('Error fetching photos data:', error);
@@ -82,6 +91,12 @@ export default {
         return response.json();
       })
       .then((data) => {
+        data.map((photo: any) => {
+          photo.category = query;
+          photo.search = query;
+          return photo;
+        });
+        req.body = data;
         res.locals.photosData = {
           photos: data,
           total: perPage,
@@ -128,6 +143,14 @@ export default {
         return response.json();
       })
       .then((data) => {
+        data.map((photo: any) => {
+          console.log('Photo ID:', photo.id, 'search: ', query);
+          photo.category = query;
+          photo.search = query;
+          return photo;
+        });
+        req.body = data;
+
         res.locals.photosData = {
           photos: data,
           total: perPage,
