@@ -9,8 +9,8 @@ import './stylesheets/App.css';
 
 const App = (props) => {
   return (
-    <div className='router'>
-      <main>
+    <div className='router h-100'>
+      <main className='h-100'>
         {/*
             NOTE: The syntax below is for React-Router
               - A helpful library for routing with a React app.
