@@ -6,7 +6,7 @@ import './stylesheets/App.css';
 
 const App = (props) => {
   return (
-    <div className='router '>
+    <div className='router'>
       <main>
         {/*
             NOTE: The syntax below is for React-Router
