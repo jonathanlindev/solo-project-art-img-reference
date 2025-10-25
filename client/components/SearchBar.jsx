@@ -16,12 +16,6 @@ const SearchBar = ({ onSearch }) => {
   };
 
   const categories = [
-    'simple geometric still life',
-    'simple geometric rectangle',
-    'simple geometric sphere',
-    'simple geometric cone',
-    'simple geometric cube',
-    'simple geometric cylinder',
     'nature',
     'landscape',
     'architecture',
@@ -32,47 +26,42 @@ const SearchBar = ({ onSearch }) => {
     'people',
   ];
   return (
-    <div className='search-section mb-4 mb-lg-5'>
-      <div className='row justify-content-center'>
-        <div className='col-12 col-md-10 col-lg-8'>
-          <form onSubmit={handleSubmit} className='mb-4'>
-            <div className='input-group input-group-lg'>
+    <div className='search-section mb-4'>
+      <form onSubmit={handleSubmit} className='mb-3'>
+        <div className='row g-2'>
+          <div className='col-md-8'>
+            <div className='input-group'>
               <input
                 type='text'
-                className='form-control'
-                placeholder='Search for art reference photos...'
+                className='form-control form-control-lg'
+                placeholder='Search for photos...'
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
               />
               <button
-                className='btn btn-primary px-4'
+                className='btn btn-primary btn-lg'
                 type='submit'
                 disabled={!searchInput.trim()}
               >
-                <i className='bi bi-search'></i>
-                <span className='d-none d-sm-inline ms-1'>Search</span>
+                <i className='bi bi-search'></i> Search
               </button>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
+      </form>
 
-      <div className='row justify-content-center'>
-        <div className='col-12 col-lg-10'>
-          <div className='text-center mb-3'>
-            <small className='text-muted fw-semibold'>Popular Categories</small>
-          </div>
-          <div className='d-flex flex-wrap justify-content-center gap-2'>
-            {categories.map((term) => (
-              <button
-                key={term}
-                className='btn btn-outline-secondary btn-sm'
-                onClick={() => handleQuickSearch(term)}
-              >
-                {term}
-              </button>
-            ))}
-          </div>
+      <div className='quick-searches'>
+        <small className='text-muted d-block mb-2'>Categories:</small>
+        <div className='d-flex flex-wrap gap-2'>
+          {categories.map((term) => (
+            <button
+              key={term}
+              className='btn btn-outline-secondary btn-sm'
+              onClick={() => handleQuickSearch(term)}
+            >
+              {term}
+            </button>
+          ))}
         </div>
       </div>
     </div>

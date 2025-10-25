@@ -1,15 +1,33 @@
 /* Custom styles for Unsplash Photo Gallery */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: #f8f9fa;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 /* Ensure full height layout */
-html,
-body,
-#app {
-  height: 100%;
+#app,
+.router {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
 }
 
 .photo-card {
@@ -102,16 +120,38 @@ header.bg-primary {
   border-radius: 8px;
 }
 
+/* Layout fixes for proper screen dimensions */
+.container-fluid {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 100%;
+}
+
+/* Main content area */
+main {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 200px); /* Account for header and footer */
+}
+
 /* Footer styling */
 footer {
   margin-top: auto;
+  flex-shrink: 0;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
   .search-section {
     padding: 1.5rem;
-    margin: 1rem;
+    margin: 0.5rem;
     border-radius: 12px;
   }
 
@@ -124,36 +164,83 @@ footer {
   }
 
   .modal-dialog.modal-xl {
-    margin: 1rem;
+    margin: 0.5rem;
+    max-width: calc(100vw - 1rem);
   }
 
   .input-group-lg .btn span {
     display: none;
+  }
+
+  main {
+    max-height: calc(100vh - 180px);
+  }
+
+  .container-fluid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 }
 
 @media (max-width: 576px) {
   .search-section {
     padding: 1rem;
-    margin: 0.5rem;
+    margin: 0.25rem;
   }
 
   .display-4 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .col-12 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   .quick-searches .btn {
-    font-size: 0.8rem;
-    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+    margin: 0.1rem;
   }
 
   .photo-card img {
-    height: 200px !important;
+    height: 180px !important;
+  }
+
+  main {
+    max-height: calc(100vh - 160px);
+  }
+
+  .container-fluid {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  .row {
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+
+  .row > * {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 992px) {
+  main {
+    max-height: calc(100vh - 220px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+
+  .photo-card img {
+    height: 260px;
   }
 }
 
@@ -165,6 +252,29 @@ footer {
 
   .photo-card img {
     height: 280px;
+  }
+}
+
+/* Prevent horizontal scrolling */
+.overflow-fix {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Ensure images don't overflow */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Fix for Bootstrap row overflow */
+.row {
+  --bs-gutter-x: 1rem;
+}
+
+@media (max-width: 576px) {
+  .row {
+    --bs-gutter-x: 0.5rem;
   }
 }
 

@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import PhotosViewController from './components/PhotosViewController.jsx';
-import Characters from './components/Characters.jsx';
-// import CreateCharacter from './components/CreateCharacter.jsx';
-
 import './stylesheets/App.css';
 
 const App = (props) => {
   return (
-    <div className='router h-100'>
-      <main className='h-100'>
+    <div className='router '>
+      <main>
         {/*
             NOTE: The syntax below is for React-Router
               - A helpful library for routing with a React app.
