@@ -9,6 +9,12 @@ function App() {
   const [error, setError] = useState(null);
 
   const categories = [
+    'simple geometric still life',
+    'simple geometric rectangle',
+    'simple geometric sphere',
+    'simple geometric cone',
+    'simple geometric cube',
+    'simple geometric cylinder',
     'nature',
     'landscape',
     'architecture',
@@ -86,7 +92,10 @@ function App() {
     <div className='container-fluid vw-100 vh-100 d-flex flex-column p-0'>
       <header className='bg-primary text-white py-4 mb-4'>
         <div className='container'>
-          <h1 className='display-4 text-center'>Unsplash Photo Gallery</h1>
+          <h1 className='display-4 text-center'>
+            {' '}
+            Art Reference Photo Gallery
+          </h1>
           <p className='lead text-center'>Beautiful photos from Unsplash API</p>
         </div>
       </header>

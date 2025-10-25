@@ -16,6 +16,12 @@ const SearchBar = ({ onSearch }) => {
   };
 
   const categories = [
+    'simple geometric still life',
+    'simple geometric rectangle',
+    'simple geometric sphere',
+    'simple geometric cone',
+    'simple geometric cube',
+    'simple geometric cylinder',
     'nature',
     'landscape',
     'architecture',
