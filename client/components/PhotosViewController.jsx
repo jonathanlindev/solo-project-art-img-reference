@@ -83,7 +83,7 @@ function App() {
   };
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid vw-100 vh-100 d-flex flex-column p-0'>
       <header className='bg-primary text-white py-4 mb-4'>
         <div className='container'>
           <h1 className='display-4 text-center'>Unsplash Photo Gallery</h1>
